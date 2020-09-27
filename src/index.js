@@ -1,21 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const mongoose = require('mongoose');
 
 const app = express();
 
 app.use(bodyParser.json());
 
-var con = mysql.createConnection({
-    host: "db",
-    user: "root",
-    password: "root"
-  });
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("##Successfully connected to MySQL container##");
-  });
-
+mongoose
+    .connect('mongodb://db:27017/stock', {
+        useNewUrlParser: true,
+        useFindAndModify: false
+    })
+    .then(result => {
+        console.log('MongoDB Conectado');
+    })
+    .catch(error => {
+        console.log(error);
+    });
 app.get('/', (req, res) => {
     res.json('Hello World')
 })

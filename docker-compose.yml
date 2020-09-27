@@ -1,9 +1,9 @@
-version: '3.2'
+version: "3"
 
 services:
   server:
     container_name: NODEJS_SERVER
-    build: '.'
+    build: "."
     volumes:
       - ./src:/node-app
       - ./node_modules:/node-app/node_modules
@@ -12,19 +12,14 @@ services:
     depends_on:
       - db
     links:
-      - db:db
+      - db
     ports:
-      - '9000:9000'
+      - "9000:9000"
 
   db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    container_name: MYSQL_SERVER
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: stock
+    image: "mongo"
+    container_name: MONGODB
     ports:
-      - "3306:3306"
+      - "27017:27017"
     volumes:
-      - $HOME/projects/stock-management/mysql:/mysql
+      - ./data/db:/data/db

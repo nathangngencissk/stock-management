@@ -9,15 +9,7 @@ const productSchema = new Schema({
     measuringUnit: {
         type: String,
         require: true
-    },
-    shops: [{
-        type: Schema.Types.ObjectId,
-        ref: "Shop"
-    }],
-    suppliers: [{
-        type: Schema.Types.ObjectId,
-        ref: "Supplier"
-    }]
+    }
 });
 
 module.exports = mongoose.model('products', productSchema);

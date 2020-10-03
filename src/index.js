@@ -13,8 +13,9 @@ const locale = require('./routes/locale');
 const order = require('./routes/order');
 const owner = require('./routes/owner');
 const product = require('./routes/product');
+const stockProduct = require('./routes/stockProduct');
 const shop = require('./routes/shop');
-const suppliers = require('./routes/suppliers');
+const supplier = require('./routes/supplier');
 const warehouse = require('./routes/warehouse');
 
 app.use('/api/address', address);
@@ -24,8 +25,9 @@ app.use('/api/locale', locale);
 app.use('/api/order', order);
 app.use('/api/owner', owner);
 app.use('/api/product', product);
+app.use('/api/stock_product', stockProduct);
 app.use('/api/shop', shop);
-app.use('/api/suppliers', suppliers);
+app.use('/api/supplier', supplier);
 app.use('/api/warehouse', warehouse);
 
 mongoose

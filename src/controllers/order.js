@@ -2,7 +2,7 @@ const Order = require('../models/Order')
 
 module.exports = () => {
     const controller = {};
-    
+
     controller.getAll = (req, res) => {
         Order.find()
             .then(orders => {

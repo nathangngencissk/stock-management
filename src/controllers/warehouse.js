@@ -57,8 +57,31 @@ module.exports = () => {
     controller.createMovement = async (req, res) => {
         let movementType = req.body.type == 'NOTA_FISCAL_ENTRADA' ? 'in' : 'out';
 
+        // create doc
+        const newDocument = new Document({
+            type: req.body.type,
+            description: req.body.description,
+            value: req.body.value,
+            quantity: req.body.quantity
+        });
+
+        let document = await newDocument.save();
+
+        // create order
+        const newOrder = new Order({
+            product: req.body.product,
+            supplier: req.body.supplier,
+            shop: req.body.shop,
+            client: req.body.client,
+            warehouse: req.body.warehouse,
+            document: document._id
+        });
+
+        let order = await newOrder.save();
+
         let stockProduct = await StockProduct.findOne({ shop: req.body.shop, warehouse: req.body.warehouse, product: req.body.product });
 
+        // update stock information
         if (movementType == 'in') {
             if (stockProduct) {
                 //update existing product
@@ -109,28 +132,6 @@ module.exports = () => {
                 res.status(500).json('Error: no product found.');
             }
         }
-
-        // create doc
-        const newDocument = new Document({
-            type: req.body.type,
-            description: req.body.description,
-            value: req.body.value,
-            quantity: req.body.quantity
-        });
-
-        let document = await newDocument.save();
-
-        // create order
-        const newOrder = new Order({
-            product: req.body.product,
-            supplier: req.body.supplier,
-            shop: req.body.shop,
-            client: req.body.client,
-            warehouse: req.body.warehouse,
-            document: document._id
-        });
-
-        let order = await newOrder.save();
 
         // return order
         res.json(order);

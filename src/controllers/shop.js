@@ -59,16 +59,7 @@ module.exports = () => {
     }
 
     controller.getStockInformation = async (req, res) => {
-        let products = [];
-
         let productsInStock = await StockProduct.find({ shop: req.params.id })
-
-        productsInStock.forEach(productInStock => {
-            products.push({
-                warehouseId: productInStock.warehouse,
-                products: productInStock.product
-            });
-        })
 
         const groups = productsInStock.reduce(async (groups, item) => {
 
@@ -76,16 +67,22 @@ module.exports = () => {
 
             let warehouse = await Warehouse.find({ _id: item.warehouse });
             let shop = await Shop.find({ _id: item.shop });
+            let product = await Product.findOne({ _id: item.product });
+
             let isOwner = warehouse.owner == shop.owner
 
             group.push({
-                product: item.product,
+                productId: item.product,
+                productName: product.name,
+                productMeasuringUnit: product.measuringUnit,
                 quantity: item.quantity,
                 totalValue: isOwner ? item.totalValue : '',
                 averageCost: isOwner ? item.totalValue / item.quantity : ''
             });
 
             groups[item.warehouse] = group;
+
+            console.log(groups)
 
             return groups;
         }, {});

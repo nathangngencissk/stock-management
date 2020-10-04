@@ -13,11 +13,7 @@ const shopSchema = new Schema({
     name: {
         type: String,
         require: true
-    },
-    products: [{
-        type: Schema.Types.ObjectId,
-        ref: "Product"
-    }]
+    }
 });
 
 module.exports = mongoose.model('shops', shopSchema);

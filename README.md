@@ -5,6 +5,8 @@ Api for stock management, done in NodeJS + MongoDB.
 
 ![Class diagram](https://raw.githubusercontent.com/nathangngencissk/stock-management/master/diagram.png)
 
+![Process diagram](https://raw.githubusercontent.com/nathangngencissk/stock-management/master/process_stock.png)
+
 There are 2 main features.
 
 `/api/warehouse/create_movement` for creating a new movement of products, that may be an entrance or exit.

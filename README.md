@@ -24,7 +24,7 @@ example payload:
 
 The process that follow is. Create a new document -> Create an order with this document -> Check order in stock -> Update stock information.
 
-`/api/shop/5f750f9d6b26310012eaea14` for checking the products in stock for the shop with id `5f750f9d6b26310012eaea14`.
+`/api/shop/5f750f9d6b26310012eaea14` for checking the products in stock by warehouse for the shop with id `5f750f9d6b26310012eaea14`.
 
 example response:
 ```json

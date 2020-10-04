@@ -60,10 +60,10 @@ module.exports = () => {
 
     controller.getStockInformation = async (req, res) => {
         let productsInStock = await StockProduct.find({ shop: req.params.id })
+        shopProducts = {}
+        for (const item of productsInStock) {
 
-        const groups = productsInStock.reduce(async (groups, item) => {
-
-            const group = (groups[item.warehouse] || []);
+            let warehouseProducts = (shopProducts[item.warehouse] || [])
 
             let warehouse = await Warehouse.find({ _id: item.warehouse });
             let shop = await Shop.find({ _id: item.shop });
@@ -71,7 +71,7 @@ module.exports = () => {
 
             let isOwner = warehouse.owner == shop.owner
 
-            group.push({
+            warehouseProducts.push({
                 productId: item.product,
                 productName: product.name,
                 productMeasuringUnit: product.measuringUnit,
@@ -80,14 +80,38 @@ module.exports = () => {
                 averageCost: isOwner ? item.totalValue / item.quantity : ''
             });
 
-            groups[item.warehouse] = group;
+            shopProducts[item.warehouse] = warehouseProducts;
 
-            console.log(groups)
+        }
+        res.json(shopProducts)
 
-            return groups;
-        }, {});
+        // const groups = productsInStock.reduce(async (groups, item) => {
 
-        groups.then(result => res.json(result))
+        //     const group = (groups[item.warehouse] || []);
+
+        //     let warehouse = await Warehouse.find({ _id: item.warehouse });
+        //     let shop = await Shop.find({ _id: item.shop });
+        //     let product = await Product.findOne({ _id: item.product });
+
+        //     let isOwner = warehouse.owner == shop.owner
+
+        //     group.push({
+        //         productId: item.product,
+        //         productName: product.name,
+        //         productMeasuringUnit: product.measuringUnit,
+        //         quantity: item.quantity,
+        //         totalValue: isOwner ? item.totalValue : '',
+        //         averageCost: isOwner ? item.totalValue / item.quantity : ''
+        //     });
+
+        //     groups[item.warehouse] = group;
+
+        //     console.log(groups)
+
+        //     return groups;
+        // }, {});
+
+        // groups.then(result => res.json(result))
     }
 
     return controller;

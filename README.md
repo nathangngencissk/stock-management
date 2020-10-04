@@ -5,11 +5,11 @@ Api for stock management, done in NodeJS + MongoDB.
 
 ![Class diagram](https://raw.githubusercontent.com/nathangngencissk/stock-management/master/diagram.png)
 
-There are 2 main features.\
+There are 2 main features.
 
-`/api/warehouse/create_movement` for creating a new movement of products, that may be an entrance or exit.\
+`/api/warehouse/create_movement` for creating a new movement of products, that may be an entrance or exit.
 
-example payload:\
+example payload:
 ```json
 {
 	"type": "NOTA_FISCAL_ENTRADA",
@@ -22,11 +22,11 @@ example payload:\
 }
 ```
 
-The process that follow is. Create a new document -> Create an order with this document -> Check order in stock -> Update stock information.\
+The process that follow is. Create a new document -> Create an order with this document -> Check order in stock -> Update stock information.
 
-`/api/shop/5f750f9d6b26310012eaea14` for checking the products in stock for the shop with id `5f750f9d6b26310012eaea14`.\
+`/api/shop/5f750f9d6b26310012eaea14` for checking the products in stock for the shop with id `5f750f9d6b26310012eaea14`.
 
-example response:\
+example response:
 ```json
 {
   "5f77ac24b7c512002e0f1cf9": [

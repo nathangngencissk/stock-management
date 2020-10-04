@@ -18,17 +18,13 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Client"
     },
-    quantity: {
-        type: String,
-        require: true
-    },
-    value: {
-        type: Number,
-        require: true
+    warehouse: {
+        type: Schema.Types.ObjectId,
+        ref: "Warehouse"
     },
     date: {
         type: Date,
-        require: true
+        default: Date.now
     },
     document: {
         type: Schema.Types.ObjectId,

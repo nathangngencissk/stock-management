@@ -70,59 +70,27 @@ module.exports = () => {
             });
         })
 
-        const groups = productsInStock.reduce((groups, item) => {
+        const groups = productsInStock.reduce(async (groups, item) => {
+
             const group = (groups[item.warehouse] || []);
+
+            let warehouse = await Warehouse.find({ _id: item.warehouse });
+            let shop = await Shop.find({ _id: item.shop });
+            let isOwner = warehouse.owner == shop.owner
+
             group.push({
                 product: item.product,
                 quantity: item.quantity,
-                totalValue: item.totalValue,
-                averageCost: item.totalValue / item.quantity
+                totalValue: isOwner ? item.totalValue : '',
+                averageCost: isOwner ? item.totalValue / item.quantity : ''
             });
+
             groups[item.warehouse] = group;
+
             return groups;
         }, {});
 
-        console.log(groups)
-
-
-
-
-        // let product = await Product.find({ _id: order.product });
-
-        // let warehouse = await Warehouse.find({ _id: order.warehouse });
-
-        // let isOwner = warehouse.owner == shop.owner;
-
-        // let document = await Document.find({ _id: order.document });
-
-        // if (product._id in products) {
-        //     products[product._id] = {
-        //         productName: product.name,
-        //         value: document.type in ['NOTA_FISCAL_ENTRADA'] ? products[product._id].value + order.value : products[product._id].value - order.value,
-        //         quantity: products[product._id].quantity + order.quantity
-        //     }
-        // } else {
-        //     products[product._id] = {
-        //         productName: product.name,
-        //         value: order.value,
-        //         quantity: order.quantity
-        //     }
-        // }
-
-        // add to warehouse -> filter products by warehouse then push 
-
-        // if (isOwner) {
-        //     //remove values to orderProduct
-        // }
-
-
-
-        res.json(groups);
-        // get all orders from shop
-
-        // loop through orders if de saida - else +
-
-        // 
+        groups.then(result => res.json(result))
     }
 
     return controller;

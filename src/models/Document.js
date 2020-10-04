@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const documentSchema = new Schema({
-    order: {
-        type: Schema.Types.ObjectId,
-        ref: "Address"
-    },
     type: {
         type: String,
         enum: ['NOTA_FISCAL_ENTRADA',
@@ -17,13 +13,21 @@ const documentSchema = new Schema({
             'SAIDA_POR_AJUSTE'],
         require: true
     },
+    description: {
+        type: String,
+        require: true
+    },
     value: {
+        type: Number,
+        require: true
+    },
+    quantity: {
         type: Number,
         require: true
     },
     date: {
         type: Date,
-        require: true
+        default: Date.now
     }
 });
 

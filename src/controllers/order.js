@@ -16,8 +16,8 @@ module.exports = () => {
             product: req.body.product,
             supplier: req.body.supplier,
             shop: req.body.shop,
+            warehouse: req.body.warehouse,
             client: req.body.client,
-            value: req.body.value,
             date: req.body.date,
             document: req.body.document
         });
@@ -38,8 +38,8 @@ module.exports = () => {
             product: req.body.product,
             supplier: req.body.supplier,
             shop: req.body.shop,
+            warehouse: req.body.warehouse,
             client: req.body.client,
-            value: req.body.value,
             date: req.body.date,
             document: req.body.document
         });

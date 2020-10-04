@@ -17,7 +17,7 @@ module.exports = () => {
             warehouse: req.body.warehouse,
             shop: req.body.shop,
             quantity: req.body.quantity,
-            totalValue: req.body.totalValue
+            totalValue: req.body.value
         });
 
         newStockProduct
@@ -37,7 +37,7 @@ module.exports = () => {
             warehouse: req.body.warehouse,
             shop: req.body.shop,
             quantity: req.body.quantity,
-            totalValue: req.body.totalValue
+            totalValue: req.body.value
         });
 
         StockProduct.findOneAndUpdate({ _id: req.params.id }, newStockProduct, { new: true })

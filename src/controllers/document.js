@@ -2,21 +2,23 @@ const Document = require('../models/Document')
 
 module.exports = () => {
     const controller = {};
-    
+
     controller.getAll = (req, res) => {
         Document.find()
             .then(documents => {
                 res.status(200).json(documents);
             })
             .catch(error => res.status(500).json(error));
-        
+
     }
 
     controller.add = (req, res) => {
         const newDocument = new Document({
             order: req.body.order,
             type: req.body.type,
-            value: req.body.value, 
+            description: req.body.description,
+            value: req.body.value,
+            quantity: req.body.quantity,
             date: req.body.date
         });
 
@@ -35,7 +37,9 @@ module.exports = () => {
             _id: req.params.id,
             order: req.body.order,
             type: req.body.type,
-            value: req.body.value, 
+            description: req.body.description,
+            value: req.body.value,
+            quantity: req.body.quantity,
             date: req.body.date
         });
 

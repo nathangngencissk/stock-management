@@ -2,7 +2,7 @@
 Api for stock management, done in NodeJS + MongoDB.
 
 ## How it works
-
+0.6
 ![Class diagram](https://raw.githubusercontent.com/nathangngencissk/stock-management/master/diagram.png)
 
 ![Process diagram](https://raw.githubusercontent.com/nathangngencissk/stock-management/master/process_stock.png)
@@ -48,3 +48,6 @@ example response:
 
 ## How to run
 install dependencies and run `docker-compose up`.
+
+## Tests
+run `npm run -s test`.

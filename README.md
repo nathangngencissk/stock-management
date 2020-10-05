@@ -47,4 +47,4 @@ example response:
 (totalValue and averageCost will only be shown if the warehouse belongs to the same owner as the store)
 
 ## How to run
-`docker-compose up`
+install dependencies and run `docker-compose up`.

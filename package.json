@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon src/app.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+	"test": "jest"
     },
     "author": "",
     "license": "ISC",
@@ -14,5 +14,8 @@
         "express": "^4.17.1",
         "mongoose": "^5.10.7",
         "nodemon": "^2.0.4"
+    },
+    "devDependencies": {
+        "jest": "^26.4.2"
     }
 }

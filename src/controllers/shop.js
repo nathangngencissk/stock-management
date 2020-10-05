@@ -59,8 +59,24 @@ module.exports = () => {
     }
 
     controller.getStockInformation = async (req, res) => {
-        let productsInStock = await StockProduct.find({ shop: req.params.id })
+
+        if (!req.params.id) {
+            res.status(500).json({ message: 'No Id received' });
+            return
+        }
+
+        let productsInStock = {}
+
+        try {
+            productsInStock = await StockProduct.find({ shop: req.params.id })
+        }
+        catch (err) {
+            res.status(500).json('Shop not found');
+            return
+        }
+
         shopProducts = {}
+
         for (const item of productsInStock) {
 
             let warehouseProducts = (shopProducts[item.warehouse] || [])
@@ -81,37 +97,8 @@ module.exports = () => {
             });
 
             shopProducts[item.warehouse] = warehouseProducts;
-
         }
         res.json(shopProducts)
-
-        // const groups = productsInStock.reduce(async (groups, item) => {
-
-        //     const group = (groups[item.warehouse] || []);
-
-        //     let warehouse = await Warehouse.find({ _id: item.warehouse });
-        //     let shop = await Shop.find({ _id: item.shop });
-        //     let product = await Product.findOne({ _id: item.product });
-
-        //     let isOwner = warehouse.owner == shop.owner
-
-        //     group.push({
-        //         productId: item.product,
-        //         productName: product.name,
-        //         productMeasuringUnit: product.measuringUnit,
-        //         quantity: item.quantity,
-        //         totalValue: isOwner ? item.totalValue : '',
-        //         averageCost: isOwner ? item.totalValue / item.quantity : ''
-        //     });
-
-        //     groups[item.warehouse] = group;
-
-        //     console.log(groups)
-
-        //     return groups;
-        // }, {});
-
-        // groups.then(result => res.json(result))
     }
 
     return controller;

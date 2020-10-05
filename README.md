@@ -2,7 +2,6 @@
 Api for stock management, done in NodeJS + MongoDB.
 
 ## How it works
-0.6
 ![Class diagram](https://raw.githubusercontent.com/nathangngencissk/stock-management/master/diagram.png)
 
 ![Process diagram](https://raw.githubusercontent.com/nathangngencissk/stock-management/master/process_stock.png)

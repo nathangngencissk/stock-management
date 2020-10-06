@@ -11,6 +11,11 @@ module.exports = () => {
             .catch(error => res.status(500).json(error));
     }
 
+    controller.get = async (req, res) => {
+        let order = await Order.findById(req.params.id);
+        res.json(order);
+    }
+
     controller.add = (req, res) => {
         const newOrder = new Order({
             product: req.body.product,

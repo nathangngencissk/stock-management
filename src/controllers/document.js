@@ -12,6 +12,11 @@ module.exports = () => {
 
     }
 
+    controller.get = async (req, res) => {
+        let document = await Document.findById(req.params.id);
+        res.json(document);
+    }
+
     controller.add = (req, res) => {
         const newDocument = new Document({
             order: req.body.order,

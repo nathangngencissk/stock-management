@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  server:
-    container_name: NODEJS_SERVER
+  stock-server:
+    container_name: NODEJS_SERVER_STOCK
     build: "."
     volumes:
       - ./src:/node-app
@@ -15,6 +15,8 @@ services:
       - db
     ports:
       - "9000:9000"
+    networks:
+      - customnet
 
   db:
     image: "mongo"
@@ -23,3 +25,10 @@ services:
       - "27017:27017"
     volumes:
       - ./data/db:/data/db
+    networks:
+      - customnet
+
+networks:
+  customnet:
+    name: customnet
+    driver: bridge

@@ -11,6 +11,12 @@ module.exports = () => {
             .catch(error => res.status(500).json(error));
     }
 
+    controller.get = async (req, res) => {
+        let stockProduct = await StockProduct.findById(req.params.id);
+
+        res.json(stockProduct)
+    }
+
     controller.add = (req, res) => {
         const newStockProduct = new StockProduct({
             product: req.body.product,

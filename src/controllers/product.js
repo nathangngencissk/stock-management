@@ -2,11 +2,19 @@ const Product = require('../models/Product')
 
 module.exports = () => {
     const controller = {};
-    
+
     controller.getAll = (req, res) => {
         Product.find()
             .then(products => {
                 res.status(200).json(products);
+            })
+            .catch(error => res.status(500).json(error));
+    }
+
+    controller.get = (req, res) => {
+        Product.findOne({ _id: req.params.id })
+            .then(product => {
+                res.json(product);
             })
             .catch(error => res.status(500).json(error));
     }
